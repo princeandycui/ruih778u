@@ -257,14 +257,14 @@ echo -e "${WHITE}    ./root.sh del${RESET_COLOR}\n"
 # 自动设置为立即启动，跳过用户输入 
 start_now="y"
 
-if [[ "$start_now" == "y" || "$start_now" == "Y" ]]; then 
-  echo "正在启动proot环境..." 
+if [[ "$start_now" == "y" || "$start_now" == "Y" ]]; then
+  echo "正在启动proot环境..."
   # 启动proot环境并执行初始化脚本
-  cd "$ROOTFS_DIR" 
-  "$ROOTFS_DIR"/usr/local/bin/proot \
+  cd $ROOTFS_DIR
+  $ROOTFS_DIR/usr/local/bin/proot \
     --rootfs="${ROOTFS_DIR}" \
     -0 -w "/root" -b /dev -b /sys -b /proc -b /etc/resolv.conf --kill-on-exit \
-    /bin/bash -c "cd /root && /bin/bash /root/init.sh $CURRENT_USER && /bin/bash" 
-# else # 这部分在自动化后不会执行，但保留以防万一
-#   echo "您可以稍后使用 ./start-proot.sh 命令启动proot环境"
-# fi
+    /bin/bash -c "cd /root && /bin/bash /root/init.sh && /bin/bash"
+else
+  echo "您可以稍后使用 ./start-proot.sh 命令启动proot环境"
+fi
